@@ -1,0 +1,121 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:term_project/Provider/RecommendationProvider.dart';
+import 'package:term_project/pages/BaseWidget.dart';
+import 'package:term_project/pages/BookListPage.dart';
+
+class OnBoarding extends StatefulWidget {
+  static const routeName = '/onBoarding-page';
+  const OnBoarding({
+    super.key,
+  });
+
+  @override
+  State<OnBoarding> createState() => _OnBoardingState();
+}
+
+class _OnBoardingState extends State<OnBoarding> {
+  bool favorite = false;
+  final List<String> _filters = <String>[];
+  List<String> get filters => _filters;
+  late DatabaseReference referance =
+      FirebaseDatabase.instance.ref().child(userid).child("recommendations");
+  String userid = FirebaseAuth.instance.currentUser!.uid;
+  @override
+  Widget build(BuildContext context) {
+    final recommendationProvider = Provider.of<RecommendationProvider>(context);
+    return Scaffold(
+        backgroundColor: const Color.fromARGB(255, 53, 83, 88),
+        body: Container(
+            child: Column(
+          children: [
+            const SizedBox(
+              height: 80,
+            ),
+            Container(
+              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+              child: Text("Pick 4 Genres to Get Started!",
+                  style:
+                      GoogleFonts.bebasNeue(fontSize: 40, color: Colors.white)),
+            ),
+            Container(
+              padding: const EdgeInsets.all(20),
+              height: 400,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const SizedBox(height: 5.0),
+                  Wrap(
+                    spacing: 5.0,
+                    children: Genres.values.map((Genres genre) {
+                      return FilterChip(
+                        selectedColor: const Color(0xFF3F51B5),
+                        backgroundColor:
+                            const Color(0xFF303F9F).withOpacity(0.5),
+                        label: Text(genre.name,
+                            style: GoogleFonts.ubuntu(color: Colors.white)),
+                        selected: _filters.contains(genre.name),
+                        onSelected: (bool value) {
+                          setState(() {
+                            if (value) {
+                              if (!_filters.contains(genre.name)) {
+                                _filters.add(genre.name);
+                              }
+                            } else {
+                              _filters.removeWhere((String name) {
+                                return name == genre.name;
+                              });
+                            }
+                          });
+                        },
+                      );
+                    }).toList(),
+                  ),
+                ],
+              ),
+            ),
+            ElevatedButton.icon(
+                style: ButtonStyle(
+                    backgroundColor: WidgetStatePropertyAll<Color>(
+                        _filters.length < 4
+                            ? Colors.grey
+                            : const Color(0xFF3F51B5))),
+                onPressed: (() {
+                  if (_filters.length < 4) {
+                    return;
+                  } else {
+                    for (int i = 0; i < _filters.length; i++) {
+                      referance.child("$i").set(_filters[i]);
+                    }
+
+                    Navigator.of(context).pushNamed(BottomBar.routeName);
+                  }
+                }),
+                icon: const Icon(Icons.done_outline),
+                label: Text(
+                  "LET'S START ${_filters.length}/4",
+                  style: GoogleFonts.ubuntu(fontSize: 20),
+                )),
+          ],
+        )));
+  }
+}
+
+enum Genres {
+  Inspirational,
+  Horror,
+  Mystery,
+  Crime,
+  Paranormal,
+  Fantasy,
+  Thrillers,
+  Historical,
+  Romance,
+  Western,
+  Science,
+  Science_Fiction,
+  Dystopian,
+}
