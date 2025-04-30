@@ -12,15 +12,27 @@ class ThemeProvider extends ChangeNotifier {
   bool get isDarkMode => _isDarkMode;
 
   Future<void> _loadThemePreference() async {
-    final prefs = await SharedPreferences.getInstance();
-    _isDarkMode = prefs.getBool(_darkModeKey) ?? false;
-    notifyListeners();
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      _isDarkMode = prefs.getBool(_darkModeKey) ?? false;
+      notifyListeners();
+    } catch (e) {
+      debugPrint('Error loading theme preference: $e');
+      _isDarkMode = false;
+      notifyListeners();
+    }
   }
 
   Future<void> toggleTheme() async {
-    _isDarkMode = !_isDarkMode;
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool(_darkModeKey, _isDarkMode);
-    notifyListeners();
+    try {
+      _isDarkMode = !_isDarkMode;
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool(_darkModeKey, _isDarkMode);
+      notifyListeners();
+    } catch (e) {
+      debugPrint('Error toggling theme: $e');
+      _isDarkMode = !_isDarkMode; // Revert the change if there's an error
+      notifyListeners();
+    }
   }
 }

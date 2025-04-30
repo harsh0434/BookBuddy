@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../services/auth_service.dart';
+<<<<<<< HEAD
+=======
+import '../Provider/ThemeProvider.dart';
+import 'package:provider/provider.dart';
+>>>>>>> 6d98a3f (Sync favorites with Firebase, fix dark mode, and improve sign up/login flow)
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -11,13 +16,20 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   final _authService = AuthService();
+<<<<<<< HEAD
   bool _isDarkMode = false;
+=======
+>>>>>>> 6d98a3f (Sync favorites with Firebase, fix dark mode, and improve sign up/login flow)
   bool _notificationsEnabled = true;
   String _selectedLanguage = 'English';
 
   @override
   Widget build(BuildContext context) {
     final user = _authService.currentUser;
+<<<<<<< HEAD
+=======
+    final themeProvider = Provider.of<ThemeProvider>(context);
+>>>>>>> 6d98a3f (Sync favorites with Firebase, fix dark mode, and improve sign up/login flow)
 
     return Scaffold(
       appBar: AppBar(
@@ -28,7 +40,11 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
         ),
         centerTitle: true,
+<<<<<<< HEAD
         backgroundColor: const Color(0xFF1E88E5),
+=======
+        backgroundColor: Theme.of(context).primaryColor,
+>>>>>>> 6d98a3f (Sync favorites with Firebase, fix dark mode, and improve sign up/login flow)
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),
@@ -50,7 +66,11 @@ class _SettingsPageState extends State<SettingsPage> {
                       children: [
                         CircleAvatar(
                           radius: 30,
+<<<<<<< HEAD
                           backgroundColor: const Color(0xFF1E88E5),
+=======
+                          backgroundColor: Theme.of(context).primaryColor,
+>>>>>>> 6d98a3f (Sync favorites with Firebase, fix dark mode, and improve sign up/login flow)
                           backgroundImage: user.photoURL != null
                               ? NetworkImage(user.photoURL!)
                               : null,
@@ -105,8 +125,11 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
           ],
 
+<<<<<<< HEAD
           const SizedBox(height: 24),
 
+=======
+>>>>>>> 6d98a3f (Sync favorites with Firebase, fix dark mode, and improve sign up/login flow)
           // Appearance Section
           _buildSectionHeader('Appearance'),
           Card(
@@ -114,6 +137,7 @@ class _SettingsPageState extends State<SettingsPage> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
+<<<<<<< HEAD
             child: Column(
               children: [
                 SwitchListTile(
@@ -148,6 +172,28 @@ class _SettingsPageState extends State<SettingsPage> {
 
           const SizedBox(height: 24),
 
+=======
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  _buildSettingItem(
+                    icon: Icons.dark_mode,
+                    title: 'Dark Mode',
+                    trailing: Switch(
+                      value: themeProvider.isDarkMode,
+                      onChanged: (value) {
+                        themeProvider.toggleTheme();
+                      },
+                      activeColor: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+>>>>>>> 6d98a3f (Sync favorites with Firebase, fix dark mode, and improve sign up/login flow)
           // Notifications Section
           _buildSectionHeader('Notifications'),
           Card(
@@ -155,6 +201,7 @@ class _SettingsPageState extends State<SettingsPage> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
+<<<<<<< HEAD
             child: SwitchListTile(
               title: Text(
                 'Push Notifications',
@@ -181,11 +228,38 @@ class _SettingsPageState extends State<SettingsPage> {
 
           // About Section
           _buildSectionHeader('About'),
+=======
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  _buildSettingItem(
+                    icon: Icons.notifications,
+                    title: 'Enable Notifications',
+                    trailing: Switch(
+                      value: _notificationsEnabled,
+                      onChanged: (value) {
+                        setState(() {
+                          _notificationsEnabled = value;
+                        });
+                      },
+                      activeColor: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          // Language Section
+          _buildSectionHeader('Language'),
+>>>>>>> 6d98a3f (Sync favorites with Firebase, fix dark mode, and improve sign up/login flow)
           Card(
             elevation: 2,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
+<<<<<<< HEAD
             child: Column(
               children: [
                 ListTile(
@@ -226,6 +300,35 @@ class _SettingsPageState extends State<SettingsPage> {
                   leading: const Icon(Icons.info),
                 ),
               ],
+=======
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  _buildSettingItem(
+                    icon: Icons.language,
+                    title: 'Language',
+                    trailing: DropdownButton<String>(
+                      value: _selectedLanguage,
+                      items: ['English', 'Spanish', 'French', 'German']
+                          .map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        if (newValue != null) {
+                          setState(() {
+                            _selectedLanguage = newValue;
+                          });
+                        }
+                      },
+                    ),
+                  ),
+                ],
+              ),
+>>>>>>> 6d98a3f (Sync favorites with Firebase, fix dark mode, and improve sign up/login flow)
             ),
           ),
         ],
@@ -235,6 +338,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   Widget _buildSectionHeader(String title) {
     return Padding(
+<<<<<<< HEAD
       padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
       child: Text(
         title,
@@ -242,8 +346,40 @@ class _SettingsPageState extends State<SettingsPage> {
           fontSize: 16,
           fontWeight: FontWeight.bold,
           color: const Color(0xFF1E88E5),
+=======
+      padding: const EdgeInsets.symmetric(vertical: 16),
+      child: Text(
+        title,
+        style: GoogleFonts.poppins(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          color: Theme.of(context).primaryColor,
+>>>>>>> 6d98a3f (Sync favorites with Firebase, fix dark mode, and improve sign up/login flow)
         ),
       ),
     );
   }
+<<<<<<< HEAD
+=======
+
+  Widget _buildSettingItem({
+    required IconData icon,
+    required String title,
+    required Widget trailing,
+  }) {
+    return ListTile(
+      leading: Icon(
+        icon,
+        color: Theme.of(context).primaryColor,
+      ),
+      title: Text(
+        title,
+        style: GoogleFonts.poppins(
+          fontSize: 16,
+        ),
+      ),
+      trailing: trailing,
+    );
+  }
+>>>>>>> 6d98a3f (Sync favorites with Firebase, fix dark mode, and improve sign up/login flow)
 }

@@ -24,14 +24,14 @@ void main() async {
   if (kIsWeb) {
     await Firebase.initializeApp(
       options: const FirebaseOptions(
-        apiKey: "AIzaSyB7KAEji13O9KDfCeXTLbNLgY_5qy9vcyo",
-        authDomain: "bookrec-abbbb.firebaseapp.com",
-        databaseURL:
-            "https://bookrec-abbbb-default-rtdb.europe-west1.firebasedatabase.app",
-        projectId: "bookrec-abbbb",
-        storageBucket: "bookrec-abbbb.appspot.com",
-        messagingSenderId: "471141870423",
-        appId: "1:471141870423:web:eb5db6a7e55df2e0826c12",
+        apiKey: "AIzaSyA-fEOwVIypkBNMlvO2WVyZ9mopd3gD7xk",
+        authDomain: "book-rec-ff381.firebaseapp.com",
+        databaseURL: "https://book-rec-ff381-default-rtdb.firebaseio.com",
+        projectId: "book-rec-ff381",
+        storageBucket: "book-rec-ff381.firebasestorage.app",
+        messagingSenderId: "229898679696",
+        appId: "1:229898679696:web:9aaf132ebbaff2c6ddaf15",
+        measurementId: "G-Q357EV5NZ4",
       ),
     );
   } else {

@@ -159,70 +159,87 @@ class _HomePageState extends State<HomePage> {
                           // Featured Books Section
                           if (featuredBooks.isNotEmpty) ...[
                             Padding(
-                              padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
+                              padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
                               child: Text(
                                 'Featured Books',
                                 style: GoogleFonts.poppins(
-                                  fontSize: 18,
+                                  fontSize: 24,
                                   fontWeight: FontWeight.bold,
                                   color: const Color(0xFF1E88E5),
                                 ),
                               ),
                             ),
                             SizedBox(
-                              height: 200,
+                              height: 220,
                               child: ListView.builder(
                                 padding:
-                                    const EdgeInsets.symmetric(horizontal: 8),
+                                    const EdgeInsets.symmetric(horizontal: 12),
                                 scrollDirection: Axis.horizontal,
                                 itemCount: featuredBooks.length,
                                 itemBuilder: (context, index) {
                                   final book = featuredBooks[index];
-                                  return ConstrainedBox(
-                                    constraints: const BoxConstraints(
-                                      minWidth: 130,
-                                      maxWidth: 130,
+                                  return Container(
+                                    width: 140,
+                                    margin: const EdgeInsets.symmetric(
+                                      horizontal: 4,
+                                      vertical: 4,
                                     ),
                                     child: Card(
-                                      elevation: 2,
+                                      elevation: 4,
                                       shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8),
+                                        borderRadius: BorderRadius.circular(12),
                                       ),
                                       child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Expanded(
-                                            flex: 7,
+                                            flex: 3,
                                             child: ClipRRect(
                                               borderRadius:
                                                   const BorderRadius.vertical(
-                                                top: Radius.circular(8),
+                                                top: Radius.circular(12),
                                               ),
-                                              child: AspectRatio(
-                                                aspectRatio: 0.8,
-                                                child: Image.network(
-                                                  book.thumbnailUrl ??
-                                                      CategoryBookList
-                                                          .fallbackCovers[0],
-                                                  fit: BoxFit.cover,
-                                                  errorBuilder: (context, error,
-                                                      stackTrace) {
-                                                    return Container(
-                                                      color: Colors.grey[200],
-                                                      child: Icon(Icons.book,
-                                                          size: 24,
-                                                          color:
-                                                              Colors.grey[400]),
-                                                    );
-                                                  },
-                                                ),
+                                              child: Image.network(
+                                                book.thumbnailUrl ??
+                                                    CategoryBookList
+                                                        .fallbackCovers[0],
+                                                fit: BoxFit.cover,
+                                                errorBuilder: (context, error,
+                                                    stackTrace) {
+                                                  return Container(
+                                                    color: Colors.grey[200],
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Icon(Icons.book,
+                                                            size: 40,
+                                                            color: Colors
+                                                                .grey[400]),
+                                                        const SizedBox(
+                                                            height: 8),
+                                                        Text(
+                                                          'No Cover',
+                                                          style: TextStyle(
+                                                            color: Colors
+                                                                .grey[600],
+                                                            fontSize: 12,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  );
+                                                },
                                               ),
                                             ),
                                           ),
                                           Expanded(
-                                            flex: 3,
+                                            flex: 1,
                                             child: Padding(
                                               padding:
-                                                  const EdgeInsets.all(4.0),
+                                                  const EdgeInsets.all(8.0),
                                               child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
@@ -234,12 +251,12 @@ class _HomePageState extends State<HomePage> {
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     style: GoogleFonts.poppins(
-                                                      fontSize: 10,
+                                                      fontSize: 12,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                     ),
                                                   ),
-                                                  const SizedBox(height: 1),
+                                                  const SizedBox(height: 2),
                                                   Text(
                                                     book.author ??
                                                         'Unknown Author',
@@ -247,7 +264,7 @@ class _HomePageState extends State<HomePage> {
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     style: GoogleFonts.poppins(
-                                                      fontSize: 9,
+                                                      fontSize: 10,
                                                       color: Colors.grey[600],
                                                     ),
                                                   ),
@@ -263,15 +280,14 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             const Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 4),
-                              child: Divider(height: 1),
+                              padding: EdgeInsets.symmetric(horizontal: 16),
+                              child: Divider(height: 24),
                             ),
                           ],
 
                           // Categories Section
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(16, 4, 16, 4),
+                            padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                             child: Text(
                               'Browse by Category',
                               style: GoogleFonts.poppins(
@@ -289,7 +305,7 @@ class _HomePageState extends State<HomePage> {
                           }).toList(),
                           SizedBox(
                               height: MediaQuery.of(context).padding.bottom +
-                                  50), // Reduced bottom padding
+                                  80), // Dynamic bottom padding
                         ],
                       ),
                     ),

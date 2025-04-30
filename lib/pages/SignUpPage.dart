@@ -50,6 +50,36 @@ class _SignUpPageState extends State<SignUpPage> {
         emailController.text.trim(),
         passwordController.text.trim(),
       );
+<<<<<<< HEAD
+=======
+      // On success, navigate to home
+      if (mounted) {
+        Navigator.pushReplacementNamed(context, '/home');
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'email-already-in-use') {
+        setState(() {
+          errorMessage =
+              'The email address is already in use. Please log in instead.';
+        });
+        // Optionally, show a SnackBar with a login action
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text('Email already in use. Please log in.'),
+            action: SnackBarAction(
+              label: 'Login',
+              onPressed: () {
+                widget.onClickSignIn();
+              },
+            ),
+          ),
+        );
+      } else {
+        setState(() {
+          errorMessage = e.message ?? 'An error occurred';
+        });
+      }
+>>>>>>> 6d98a3f (Sync favorites with Firebase, fix dark mode, and improve sign up/login flow)
     } catch (e) {
       setState(() {
         errorMessage = e.toString();

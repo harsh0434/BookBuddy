@@ -1,5 +1,9 @@
 import 'package:flutter/foundation.dart';
+<<<<<<< HEAD
 import 'package:shared_preferences.dart';
+=======
+import 'package:shared_preferences/shared_preferences.dart'; // Fixed import statement
+>>>>>>> 6d98a3f (Sync favorites with Firebase, fix dark mode, and improve sign up/login flow)
 import '../model/book_model.dart';
 
 class FavoriteProvider with ChangeNotifier {

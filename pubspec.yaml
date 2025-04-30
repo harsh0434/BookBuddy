@@ -49,7 +49,10 @@ dependencies:
   firebase_database: ^10.2.5
   firebase_core: ^2.15.1
   shared_preferences: ^2.2.2
+<<<<<<< HEAD
   http: ^1.1.0
+=======
+>>>>>>> 6d98a3f (Sync favorites with Firebase, fix dark mode, and improve sign up/login flow)
 
 dev_dependencies:
   flutter_test:

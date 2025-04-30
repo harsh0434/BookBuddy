@@ -8,6 +8,7 @@ import 'package:term_project/services/book_api.dart';
 import '../Provider/FavoriteProvider.dart';
 import '../model/book_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'ReviewSection.dart';
 
 class BookDetailPage extends StatefulWidget {
   BookModel book;
@@ -292,6 +293,10 @@ class _BookDetailPageState extends State<BookDetailPage> {
                       ],
                     ),
                   ),
+                  const SizedBox(height: 24),
+                  // --- Review Section Start ---
+                  ReviewSection(book: widget.book),
+                  // --- Review Section End ---
                   const SizedBox(height: 24),
                   Text(
                     "Similar Books",
